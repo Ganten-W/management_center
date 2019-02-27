@@ -4,10 +4,12 @@
       <el-col :span="6" :offset="1">
         <span>年级</span>
         <el-select v-model="grade" placeholder="年级名称" size="mini" clearable>
-          <el-option label="2018级" value="2018"></el-option>
-          <el-option label="2017级" value="2017"></el-option>
-          <el-option label="2016级" value="2016"></el-option>
-          <el-option label="2015级" value="2015"></el-option>
+          <el-option
+            v-for="item in gradeOption"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
         </el-select>
       </el-col>
       <el-col :span="6" :offset="10">
@@ -20,10 +22,12 @@
       <el-col :span="6" :offset="1">
         <span>年级</span>
         <el-select v-model="grade" placeholder="年级名称" size="mini" clearable>
-          <el-option label="2018级" value="2018"></el-option>
-          <el-option label="2017级" value="2017"></el-option>
-          <el-option label="2016级" value="2016"></el-option>
-          <el-option label="2015级" value="2015"></el-option>
+          <el-option
+            v-for="item in gradeOption"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
         </el-select>
       </el-col>
       <el-col :span="6" :offset="10">
@@ -39,6 +43,12 @@
     data(){
       return {
         grade:'',
+        gradeOption:[
+          {label:'2018级',value:'2018'},
+          {label:'2017级',value:'2017'},
+          {label:'2016级',value:'2016'},
+          {label:'2015级',value:'2015'}
+          ]
       }
     },
 

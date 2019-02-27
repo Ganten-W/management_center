@@ -4,28 +4,35 @@
       <el-col :span="8">
         <span>所属专业</span>
         <el-select v-model="form.major" placeholder="专业名称" size="small" clearable>
-          <el-option label="计算机软件" value="jsj"></el-option>
-          <el-option label="物流管理" value="wl"></el-option>
-          <el-option label="市场营销" value="sc"></el-option>
-          <el-option label="电子商务" value="dz"></el-option>
+          <el-option
+            v-for="item in majorOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+
         </el-select>
       </el-col>
       <el-col :span="8">
         <span>年级</span>
         <el-select v-model="form.grade" placeholder="年级名称" size="small" clearable>
-          <el-option label="2018级" value="2018"></el-option>
-          <el-option label="2017级" value="2017"></el-option>
-          <el-option label="2016级" value="2016"></el-option>
-          <el-option label="2015级" value="2015"></el-option>
+          <el-option
+            v-for="item in gradeOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
         </el-select>
       </el-col>
       <el-col :span="8">
         <span>班级</span>
         <el-select v-model="form.class" placeholder="班级名称" size="small" clearable>
-          <el-option label="计算机1001" value="1001"></el-option>
-          <el-option label="计算机1002" value="1002"></el-option>
-          <el-option label="计算机1003" value="1003"></el-option>
-          <el-option label="计算机1004" value="1004"></el-option>
+          <el-option
+            v-for="item in classOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
         </el-select>
       </el-col>
     </el-row>
@@ -33,10 +40,12 @@
       <el-col :span="8">
         <span>院系或部门</span>
         <el-select v-model="form.department" placeholder="全部" size="small" clearable>
-          <el-option label="1" value="1"></el-option>
-          <el-option label="2" value="2"></el-option>
-          <el-option label="3" value="3"></el-option>
-          <el-option label="4" value="4"></el-option>
+          <el-option
+            v-for="item in departmentOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
         </el-select>
       </el-col>
       <el-col :span="8">
@@ -135,6 +144,29 @@
           num: '',
           name: ''
         },
+        majorOptions:[
+          {label:'计算机软件',value:'jsj'},
+          {label:'物流管理',value:'wl'},
+          {label:'市场营销',value:'sc'},
+          {label:'电子商务',value:'dz'}
+        ],
+        gradeOptions:[
+          {label:'2018级',value:'2018'},
+          {label:'2017级',value:'2017'},
+          {label:'2016级',value:'2016'},
+          {label:'2015级',value:'2015'}
+        ],
+        classOptions:[
+          {label:'计算机1001',value:'1001'},
+          {label:'计算机1002',value:'1002'},
+          {label:'计算机1003',value:'1003'},
+          {label:'计算机1004',value:'1004'}
+        ],
+        departmentOptions:[
+          {label:'理工学院',value:'lg'},
+          {label:'文管学院',value:'wg'},
+          {label:'海洋学院',value:'hy'}
+        ],
         tableData:[{
           num:'1001',
           name:'wr',

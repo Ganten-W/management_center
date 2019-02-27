@@ -1,11 +1,13 @@
 <template>
   <div id="container">
-    <div class="nav-bar">
+    <div class="nav-bar" ref="navBar" :class="{width290:showValue,width50:!showValue}">
       <div class="bar-top">
         <i class="el-icon-minus" @click="show()"></i>
       </div>
       <div class="bar-bottom">
-        <div class="nav1" @click="showLeft()"><img src="@/assets/menu.png" alt="控制面板"></div>
+        <div class="nav1" @click="showLeft()"
+             :class="{border1:showValue,borderNone:!showValue}">
+          <img src="@/assets/menu.png" alt="控制面板"></div>
         <div class="nav2" v-show="showValue">
           <img src="@/assets/home.png" alt="首页">
           <img src="@/assets/prev.png" alt="后退">
@@ -19,7 +21,7 @@
         <div class="nav4" v-show="showValue"><img src="@/assets/remark.png" alt="评论及备注"></div>
       </div>
     </div>
-    <div class="left-bar">
+    <div class="left-bar" :class="{left0:showL,left260:!showL}">
       <div class="header">
         <h2 class="header-name">学生管理中心</h2>
         <img class="message" src="@/assets/show_comments.png" alt="信息管理">
@@ -80,7 +82,7 @@
         </el-row>
       </div>
     </div>
-    <div class="main-box">
+    <div class="main-box" :class="{paddingL260:showL,paddingL0:!showL}">
       <div class="main">
         <el-row>
           <el-col :span="24" class="main-title">学生个人中心</el-col>
@@ -103,36 +105,17 @@
     data() {
       return {
         showValue: true,
+        showL:true,
       }
     },
     methods: {
       //导航条收放
       show() {
-        let div1 = document.querySelector(".nav-bar");
-        let nav1 = document.querySelector(".nav1");
-        if (this.showValue === true) {
-          this.showValue = false;
-          div1.style.width = '50px';
-          nav1.style.borderRight = 'none'
-        } else {
-          this.showValue = true;
-          div1.style.width = '290px';
-          nav1.style.borderRight = '1px solid rgb(102, 102, 102)'
-        }
+        this.showValue=!this.showValue
       },
       //侧栏收放
       showLeft() {
-        let div1 = document.querySelector(".left-bar");
-        let mainBox=document.querySelector(".main-box")
-        console.log(div1.style.left);
-        //if下要写-260，第一次点击才会生效
-        if (div1.style.left === '-260px') {
-          div1.style.left = '0';
-          mainBox.style.paddingLeft='260px'
-        } else {
-          div1.style.left = '-260px';
-          mainBox.style.paddingLeft='0'
-        }
+        this.showL=!this.showL
       },
       handleOpen(key, keyPath) {
         // console.log(key, keyPath);
@@ -143,20 +126,20 @@
     },
     mounted() {
       //导航条移动
-      let div1 = document.querySelector(".nav-bar");
-      div1.onmousedown = (ev) => {
-        let disX = ev.clientX - div1.offsetLeft;
-        let disY = ev.clientY - div1.offsetTop;
+      // let div1 = document.querySelector(".nav-bar"); ref代替
+      this.$refs.navBar.onmousedown = (ev) => {
+        let disX = ev.clientX - this.$refs.navBar.offsetLeft;
+        let disY = ev.clientY - this.$refs.navBar.offsetTop;
         document.onmousemove = (ev) => {
           let l = ev.clientX - disX;
           let t = ev.clientY - disY;
-          div1.style.left = l + 'px';
-          div1.style.top = t + 'px';
-          if (div1.offsetLeft < 0) {
-            div1.style.left = '0';
+          this.$refs.navBar.style.left = l + 'px';
+          this.$refs.navBar.style.top = t + 'px';
+          if (this.$refs.navBar.offsetLeft < 0) {
+            this.$refs.navBar.style.left = '0';
           }
-          if (div1.offsetTop < 0) {
-            div1.style.top = '0';
+          if (this.$refs.navBar.offsetTop < 0) {
+            this.$refs.navBar.style.top = '0';
           }
         };
         document.onmouseup = () => {
@@ -164,13 +147,35 @@
           document.onmouseup = null;
         };
       }
-
-
     }
   }
 </script>
 
 <style lang="scss" scoped>
+  .width50{
+    width: 50px;
+  }
+  .width290{
+    width: 290px;
+  }
+  .borderNone{
+    border-right: none;
+  }
+  .border1{
+    border-right: 1px solid rgb(102, 102, 102);
+  }
+  .left0{
+    left:0;
+  }
+  .left260{
+    left:-260px;
+  }
+  .paddingL0{
+    padding-left: 0px;
+  }
+  .paddingL260{
+    padding-left: 260px;
+  }
   #container {
     position: relative;
     width: 100%;
@@ -188,7 +193,6 @@
       right: 350px;
       box-sizing: border-box;
       background-color: rgba(0, 0, 0, 0.3);
-      width: 290px;
       height: 47px;
       border: 1px solid #000;
       z-index: 100000;
@@ -219,7 +223,6 @@
         padding: 0 5px;
 
         .nav1 {
-          border-right: 1px solid rgb(102, 102, 102);
           padding-right: 5px;
           height: 24px;
         }
@@ -254,7 +257,6 @@
       height: 100%;
       padding: 10px;
       position: fixed;
-      left: 0;
       transition: left .3s;
       box-sizing: border-box;
       z-index: 3;
@@ -352,7 +354,6 @@
       position: relative;
       width: 100%;
       height: 100%;
-      padding-left: 260px;
       transition: padding-left .3s;
       text-align: center;
       overflow: auto;
